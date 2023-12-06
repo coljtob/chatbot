@@ -19,3 +19,8 @@
     "input": "how to clean node cache",
     "output": "npm cache clean --force"
   },
+  {
+    "input": "What is the meaning of life?",
+    "output": "Appreciate every day"
+  }
+]
