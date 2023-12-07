@@ -29,16 +29,16 @@ class ChatBot {
 				// retrain on api/train with no input/output (in case of adjusting threshold, iterations, etc.)
 				console.log('Retraining brain with existing data');
 			} else {
+				// adding new data to training data
 				fileContentJSON.push({ input: input, output: output });
-				uniqueFileContentJSON = this.removeDuplicates(fileContentJSON, "output");
 			}
 		} else {
+			// first time training
 			fileContentJSON = this.trainingData;
 			fileContentJSON.push({ input: input, output: output });
-			// remove chance of duplicates, especially running tests more than once
-			uniqueFileContentJSON = this.removeDuplicates(fileContentJSON, "output");
 		}
-
+		// remove chance of duplicates, especially running tests more than once
+		uniqueFileContentJSON = this.removeDuplicates(fileContentJSON, "output");
 		const jsonData = JSON.stringify(uniqueFileContentJSON, null, 2);
 		try {
 			fs.writeFileSync('training/training-data-array.json', jsonData, 'utf8');
@@ -47,7 +47,7 @@ class ChatBot {
 			console.error('Error writing to file:', err);
 		}
 
-		this.trainBrain(fileContentJSON);
+		this.trainBrain(uniqueFileContentJSON);
 	}
 
 	removeDuplicates = (array, key) => {
@@ -57,14 +57,6 @@ class ChatBot {
 			return seen.has(itemKey) ? false : seen.add(itemKey);
 		});
 	};
-
-	askQuestion(question) {
-		return new Promise((resolve) => {
-			this.rl.question(question, (answer) => {
-				resolve(answer);
-			});
-		});
-	}
 
 	doesFileExist(filePath) {
 		try {
@@ -101,7 +93,7 @@ class ChatBot {
 		const net = new brain.recurrent.LSTM();
 		net.train(dataSet, {
 			errorThresh: 0.0110,
-			iterations: 2000,
+			iterations: 3000,
 			log: true
 		});
 
