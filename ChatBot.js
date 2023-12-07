@@ -36,13 +36,12 @@ class ChatBot {
 		}
 
 		const jsonData = JSON.stringify(fileContentJSON, null, 2);
-		fs.writeFile('training/training-data-array.json', jsonData, 'utf8', (err) => {
-			if (err) {
-				console.error('Error writing to file:', err);
-			} else {
-				console.log('JSON training data written to file successfully.');
-			}
-		});
+		try {
+			fs.writeFileSync('training/training-data-array.json', jsonData, 'utf8');
+			console.log('JSON training data written to file successfully.');
+		} catch (err) {
+			console.error('Error writing to file:', err);
+		}
 
 		this.trainBrain(fileContentJSON);
 	}
@@ -57,9 +56,7 @@ class ChatBot {
 
 	doesFileExist(filePath) {
 		try {
-			const stats = fs.statSync(filePath);
-			const fileSize = stats.size;
-			if (fs.existsSync(filePath) && fileSize > 0) {
+			if (fs.existsSync(filePath)) {
 				return true;
 			}
 		} catch (err) {
@@ -91,21 +88,20 @@ class ChatBot {
 	trainBrain(dataSet) {
 		const net = new brain.recurrent.LSTM();
 		net.train(dataSet, {
-			errorThresh: 0.0106,
+			errorThresh: 0.0111,
+			iterations: 3000,
 			log: true
 		});
 
 		const json = net.toJSON();
 		const jsonData = JSON.stringify(json, null, 2);
 
-		fs.writeFile('training/trained-net.json', jsonData, 'utf8', (err) => {
-			if (err) {
-				console.error('Error writing to file:', err);
-			} else {
-				console.log('Data written to file successfully.');
-				console.log('Thank you for your input');
-			}
-		});
+		try {
+			fs.writeFileSync('training/trained-net.json', jsonData, 'utf8');
+			console.log('JSON training net written to file successfully.');
+		} catch (err) {
+			console.error('Error writing to file:', err);
+		}
 	}
 
 	async main() {

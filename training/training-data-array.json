@@ -30,5 +30,33 @@
   {
     "input": "favorite food",
     "output": "pizza"
+  },
+  {
+    "input": "favorite state",
+    "output": "mass"
+  },
+  {
+    "input": "favorite city",
+    "output": "boston"
+  },
+  {
+    "input": "favorite book",
+    "output": "lolita"
+  },
+  {
+    "input": "favorite rock",
+    "output": "igeneous"
+  },
+  {
+    "input": "favorite cloud",
+    "output": "stratus"
+  },
+  {
+    "input": "favorite company to work for",
+    "output": "Adobe"
+  },
+  {
+    "input": "favorite company to work for",
+    "output": "Adobe"
   }
 ]

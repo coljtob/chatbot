@@ -4,22 +4,10 @@ const ChatBot = require('./ChatBot'); // Adjust the path accordingly
 const app = express();
 const port = 3001;
 
-
-
 const chatBot = new ChatBot();
 
-/*const queue = [];
-let inprogress = null;*/
-
 app.use(bodyParser.json()); // Parse JSON request bodies
-/*app.use((req, res, next) => {
-	if (inprogress) {
-		queue.push({req, res, next})
-	} else {
-		inprogress = res;
-		next();
-	}
-})*/
+
 app.post('/api/train', async (req, res) => {
 	const input = req.body.input;
 	const output = req.body.output;
@@ -33,18 +21,10 @@ app.get('/api/ask', async (req, res) => {
 	res.json({ answer: answer });
 });
 
-/*app.use((req, res, next) => {
-	inprogress = null;
-	if (queue.length > 0) {
-		const queued = queue.shift();
-		inprogress = queued.res;
-		queued.next();
-	}
-	next();
-})*/
-
 const server = app.listen(port, () => {
 	console.log(`Server running at http://localhost:${port}`);
 });
 
 server.timeout = 120000;
+
+module.exports = app; // Export the app object
