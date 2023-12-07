@@ -24,10 +24,6 @@
     "output": "Appreciate every day"
   },
   {
-    "input": "What is the meaning of life?",
-    "output": "Appreciate every day"
-  },
-  {
     "input": "favorite food",
     "output": "pizza"
   },
@@ -40,23 +36,11 @@
     "output": "boston"
   },
   {
-    "input": "favorite book",
-    "output": "lolita"
-  },
-  {
     "input": "favorite rock",
-    "output": "igeneous"
+    "output": "igneous"
   },
   {
     "input": "favorite cloud",
     "output": "stratus"
-  },
-  {
-    "input": "favorite company to work for",
-    "output": "Adobe"
-  },
-  {
-    "input": "favorite company to work for",
-    "output": "Adobe"
   }
 ]
