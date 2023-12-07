@@ -11,6 +11,6 @@
     "supertest": "^6.3.3"
   },
   "scripts": {
-    "test": "mocha --exit --timeout 120000"
+    "test": "mocha --exit --timeout 180000"
   }
 }

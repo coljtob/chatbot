@@ -17,7 +17,7 @@ class ChatBot {
 
 		let fileContentJSON;
 		let fileContent;
-
+		let uniqueFileContentJSON;
 		if (this.doesFileExist("training/training-data-array.json")) {
 			
 			fileContent = fs.readFileSync("training/training-data-array.json", "utf8");
@@ -30,13 +30,16 @@ class ChatBot {
 				console.log('Retraining brain with existing data');
 			} else {
 				fileContentJSON.push({ input: input, output: output });
+				uniqueFileContentJSON = this.removeDuplicates(fileContentJSON, "output");
 			}
 		} else {
 			fileContentJSON = this.trainingData;
 			fileContentJSON.push({ input: input, output: output });
+			// remove chance of duplicates, especially running tests more than once
+			uniqueFileContentJSON = this.removeDuplicates(fileContentJSON, "output");
 		}
 
-		const jsonData = JSON.stringify(fileContentJSON, null, 2);
+		const jsonData = JSON.stringify(uniqueFileContentJSON, null, 2);
 		try {
 			fs.writeFileSync('training/training-data-array.json', jsonData, 'utf8');
 			console.log('JSON training data written to file successfully.');
@@ -46,6 +49,14 @@ class ChatBot {
 
 		this.trainBrain(fileContentJSON);
 	}
+
+	removeDuplicates = (array, key) => {
+		const seen = new Set();
+		return array.filter((item) => {
+			const itemKey = item[key];
+			return seen.has(itemKey) ? false : seen.add(itemKey);
+		});
+	};
 
 	askQuestion(question) {
 		return new Promise((resolve) => {
