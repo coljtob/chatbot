@@ -12,14 +12,17 @@ class ChatBot {
 	}
 
 	addToTrainingData(input, output) {
-		this.backUpFile("trained-net.json");
-		this.backUpFile("training-data-array.json");
+		this.backUpFile("training/trained-net.json");
+		this.backUpFile("training/training-data-array.json");
 
 		let fileContentJSON;
 		let fileContent;
 
-		if (this.doesFileExist("training-data-array.json")) {
-			fileContent = fs.readFileSync("training-data-array.json", "utf8");
+		if (this.doesFileExist("training/training-data-array.json")) {
+			
+			fileContent = fs.readFileSync("training/training-data-array.json", "utf8");
+			console.log("length of file conent: " + fileContent.length);
+			console.log("file content: " + fileContent);
 			fileContentJSON = JSON.parse(fileContent);
 
 			if (input == undefined && output == undefined) {
@@ -33,7 +36,7 @@ class ChatBot {
 		}
 
 		const jsonData = JSON.stringify(fileContentJSON, null, 2);
-		fs.writeFile('training-data-array.json', jsonData, 'utf8', (err) => {
+		fs.writeFile('training/training-data-array.json', jsonData, 'utf8', (err) => {
 			if (err) {
 				console.error('Error writing to file:', err);
 			} else {
@@ -54,7 +57,9 @@ class ChatBot {
 
 	doesFileExist(filePath) {
 		try {
-			if (fs.existsSync(filePath)) {
+			const stats = fs.statSync(filePath);
+			const fileSize = stats.size;
+			if (fs.existsSync(filePath) && fileSize > 0) {
 				return true;
 			}
 		} catch (err) {
@@ -63,7 +68,7 @@ class ChatBot {
 	}
 
 	async askBrain(question) {
-		let fileContent = fs.readFileSync("trained-net.json", "utf8");
+		let fileContent = fs.readFileSync("training/trained-net.json", "utf8");
 		let fileContentJSON = JSON.parse(fileContent);
 		const net = new brain.recurrent.LSTM();
 		net.fromJSON(fileContentJSON);
@@ -86,14 +91,14 @@ class ChatBot {
 	trainBrain(dataSet) {
 		const net = new brain.recurrent.LSTM();
 		net.train(dataSet, {
-			errorThresh: 0.0104,
+			errorThresh: 0.0106,
 			log: true
 		});
 
 		const json = net.toJSON();
 		const jsonData = JSON.stringify(json, null, 2);
 
-		fs.writeFile('trained-net.json', jsonData, 'utf8', (err) => {
+		fs.writeFile('training/trained-net.json', jsonData, 'utf8', (err) => {
 			if (err) {
 				console.error('Error writing to file:', err);
 			} else {
@@ -101,7 +106,6 @@ class ChatBot {
 				console.log('Thank you for your input');
 			}
 		});
-		this.main();
 	}
 
 	async main() {
@@ -113,7 +117,7 @@ class ChatBot {
 			const output = await this.askQuestion('What is the training answer? ');
 			this.addToTrainingData(input, output);
 		} else if (train === 'ask') {
-			if (!this.doesFileExist("trained-net.json")) {
+			if (!this.doesFileExist("training/trained-net.json")) {
 				const question = await this.askQuestion('Training is empty. Please choose train.');
 			} else {
 				const question = await this.askQuestion('What is your question? ');

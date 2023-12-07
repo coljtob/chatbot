@@ -1,0 +1,34 @@
+[
+  {
+    "input": "copy file into docker container",
+    "output": "docker cp ./some_file CONTAINER:/work"
+  },
+  {
+    "input": "how to run nodejs file on command line",
+    "output": "node --experimental-modules src/file.js"
+  },
+  {
+    "input": "how to rebase in git",
+    "output": "git pull origin --rebase "
+  },
+  {
+    "input": "how to view all ports being used on mac",
+    "output": "sudo lsof -iTCP -sTCP:LISTEN -n -P"
+  },
+  {
+    "input": "how to clean node cache",
+    "output": "npm cache clean --force"
+  },
+  {
+    "input": "What is the meaning of life?",
+    "output": "Appreciate every day"
+  },
+  {
+    "input": "What is the meaning of life?",
+    "output": "Appreciate every day"
+  },
+  {
+    "input": "favorite food",
+    "output": "pizza"
+  }
+]
