@@ -11,7 +11,12 @@ app.use(bodyParser.json()); // Parse JSON request bodies
 app.post('/api/train', async (req, res) => {
 	const input = req.body.input;
 	const output = req.body.output;
-	res.json({ message: 'Training data will be added!' });
+	if (input == undefined || output == undefined) {
+		res.json({ message: 'Training data not added, but re-training!' });
+	} else {
+		res.json({ message: 'Training data will be added!' });
+	}
+	
 	chatBot.addToTrainingData(input, output);
 });
 
