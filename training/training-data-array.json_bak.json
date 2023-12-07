@@ -9,7 +9,7 @@
   },
   {
     "input": "how to rebase in git",
-    "output": "git pull origin --rebase "
+    "output": "git pull origin --rebase"
   },
   {
     "input": "how to view all ports being used on mac",

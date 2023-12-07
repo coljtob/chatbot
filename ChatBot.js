@@ -26,6 +26,7 @@ class ChatBot {
 			fileContentJSON = JSON.parse(fileContent);
 
 			if (input == undefined && output == undefined) {
+				// retrain on api/train with no input/output (in case of adjusting threshold, iterations, etc.)
 				console.log('Retraining brain with existing data');
 			} else {
 				fileContentJSON.push({ input: input, output: output });
@@ -88,8 +89,8 @@ class ChatBot {
 	trainBrain(dataSet) {
 		const net = new brain.recurrent.LSTM();
 		net.train(dataSet, {
-			errorThresh: 0.0111,
-			iterations: 3000,
+			errorThresh: 0.02,
+			iterations: 2000,
 			log: true
 		});
 
