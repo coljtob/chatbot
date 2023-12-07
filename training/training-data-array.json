@@ -42,9 +42,5 @@
   {
     "input": "favorite cloud",
     "output": "stratus"
-  },
-  {
-    "input": "favorite company to work for",
-    "output": "Adobe"
   }
 ]

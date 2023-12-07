@@ -104,30 +104,7 @@ class ChatBot {
 			console.error('Error writing to file:', err);
 		}
 	}
-
-	async main() {
-		// for running command line tests
-		let train = await this.askQuestion('train, ask, or retrain? ');
-
-		if (train === 'train') {
-			const input = await this.askQuestion('What is the training question? ');
-			const output = await this.askQuestion('What is the training answer? ');
-			this.addToTrainingData(input, output);
-		} else if (train === 'ask') {
-			if (!this.doesFileExist("training/trained-net.json")) {
-				const question = await this.askQuestion('Training is empty. Please choose train.');
-			} else {
-				const question = await this.askQuestion('What is your question? ');
-				this.askBrain(question);
-			}
-		} else if (train === 'retrain') {
-			this.addToTrainingData();
-		} else {
-			train = await this.askQuestion('Do not understand your request.');
-		}
-
-		this.rl.close();
-	}
+	
 }
 
 module.exports = ChatBot;
