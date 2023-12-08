@@ -92,7 +92,7 @@ class ChatBot {
 	trainBrain(dataSet) {
 		const net = new brain.recurrent.LSTM();
 		net.train(dataSet, {
-			errorThresh: 0.0110,
+			errorThresh: 0.0113,
 			iterations: 3000,
 			log: true
 		});

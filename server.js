@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const ChatBot = require('./ChatBot'); // Adjust the path accordingly
+const ChatBot = require('./ChatBot'); 
 const app = express();
 const port = 3001;
 
 const chatBot = new ChatBot();
 
-app.use(bodyParser.json()); // Parse JSON request bodies
+app.use(bodyParser.json());
 
 app.post('/api/train', async (req, res) => {
 	const input = req.body.input;
@@ -32,4 +32,4 @@ const server = app.listen(port, () => {
 
 server.timeout = 120000;
 
-module.exports = app; // Export the app object
+module.exports = app; 
