@@ -46,5 +46,37 @@
   {
     "input": "favorite company to work for",
     "output": "Adobe"
+  },
+  {
+    "input": "destructure a Javascript array",
+    "output": "const [first, second] = [1, 2];"
+  },
+  {
+    "input": "destructure a Javascript object",
+    "output": "const { name, age } = { name: 'John', age: 25 };"
+  },
+  {
+    "input": "create Javascript strings with embedded expressions",
+    "output": "const greeting = `Hello, ${name}!`;"
+  },
+  {
+    "input": "provide a default value if none is defined in Javascript",
+    "output": "const defaultValue = someVariable ?? 'default';"
+  },
+  {
+    "input": "create a git alias",
+    "output": "git config --global alias.co checkout"
+  },
+  {
+    "input": "example of an arrow function in Javascript",
+    "output": "const add = (a, b) => a + b;"
+  },
+  {
+    "input": "example of optional chaining in Javascript",
+    "output": "const address = user?.address?.city;"
+  },
+  {
+    "input": "retrieving an enviroment variable in Javascript",
+    "output": "const apiKey = process.env.API_KEY;"
   }
 ]
