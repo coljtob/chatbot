@@ -93,7 +93,7 @@ describe('API Tests', () => {
 		expect(response.status).to.equal(200);
 	});
 
-	// new answer
+		// new answer
 	it('train 2: should return a 200 status code for a GET request with correct answer', async () => {
 		const response = await api.get(`/api/ask?question=${encodeURIComponent(questions[11])}`);
 		expect(response.status).to.equal(200);
